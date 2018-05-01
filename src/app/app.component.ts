@@ -27,9 +27,7 @@ export class AppComponent {
 
   constructor() { }
   
-  ngOnInit() { 
-    this.searchTask();
-  }
+  ngOnInit() {}
 
   //verifica qual action será executada
   clickToAction(type: string){
@@ -43,6 +41,7 @@ export class AppComponent {
     } 
   }
 
+  //seleciona o tipo de ação da navbar
   setSelected(type: string){
     this.selected = type;
   } 
@@ -68,7 +67,7 @@ export class AppComponent {
     this.updateTasks();
   }
 
-  //deleya task do vetor
+  //deleta task do vetor
   deleteTask(index){
 
     this.tasks.splice(index, 1);
