@@ -1,20 +1,68 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+<nav class="main-menu">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" (click)="clickToAction('add')">
+        <a class="nav-link" [class.active]="getSelected('add')" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true"><fa name="fas fa-plus"></fa></a>
+      </li>
+      <li class="nav-item" (click)="clickToAction('search')">
+        <a class="nav-link" [class.active]="getSelected('search')" id="profile-tab" data-toggle="tab" role="tab" aria-controls="profile" aria-selected="true"><fa name="fas fa-search"></fa></a>
+      </li>
+    </ul>
+
+  <div class="user">
+      <div class="user-name">
+        <span>Ana Guatura</span>
+        <p>Logged In</p>
+      </div>
+      <div class="user-image">
+        <img src="../assets/ana-clara.jpg" alt="">
+      </div>
+  </div>
+</nav>
+
+<div class="input-task">
+    <div class="container-fluid">
+        <div class="add-task">
+            <div class="row">
+                <div class="col-md-12">
+                    <div *ngIf="showAddInput"class="input-group">
+                        <input type="text" [(ngModel)]="task" class="form-control" placeholder="Add a task..." aria-label="Add a task..." aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" (click)="addTask(task)"><fa name="fas fa-plus"></fa></button>
+                        </div>
+                    </div>
+                    <div *ngIf="!showAddInput" class="input-group">
+                        <input type="text" [(ngModel)]="taskSearch" class="form-control" placeholder="Search a task..." aria-label="Search a task..." aria-describedby="basic-addon2" (keyup)="searchTask()">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" ><fa name="fas fa-search"></fa></button>
+                        </div>
+                    </div>
+                </div>    
+            </div>
+        </div>
+    </div>
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+
+<div class="list-of-tasks">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="itens" *ngFor="let task of tasks; let i = index" [class.active]="isActive(task)">
+                  <label>
+                      <input type="checkbox"
+                              name="options"
+                              value="{{task.desc}}"
+                              [(ngModel)]="task.checked" 
+                              (ngModelChange)="changed(task)">
+                      {{task.desc}}
+                  </label>
+                  <span class="delete-task" (click)="deleteTask(i)" ><fa name="fas fa-times"></fa></span>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="footer">
+  <span>You have: {{ totalItens }} total itens, {{ undoneItens }} undone and {{ doneItens }} done itens.</span>
+</div>
 
